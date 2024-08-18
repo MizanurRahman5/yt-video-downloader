@@ -1,0 +1,15 @@
+import ytdl  from "ytdl-core";
+import { NextResponse } from "next/server";
+
+export async function GET(request) {
+    const {searchParams} = new URL(request.url)
+    const url = searchParams.get('url')
+    const info = await ytdl.getInfo(info)
+    const videoFormat = ytdl.filterFormats(info.formats , 'video')
+    const format = ytdl.chooseFormat(videoFormat, {quality:"highestaudio"})
+
+    const fileName = `${info.videoDetails.title}.${format.container}`
+    const resposeHeader = {'content-Disposition': `attachment; filename="${fileName}"`}
+
+    return NextResponse.json({format, resposeHeader, fileName})
+}
