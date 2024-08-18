@@ -15,7 +15,6 @@ export default function Home() {
   const handleDownload = async ()=>{
     try{
       const res = await axios.get(`/api/downloader?url=${videoLink}`)
-      console.log(res.data)
       setFinalLink(res.data.format.url)
       setShowDownload(true)
     }catch(err){
@@ -93,15 +92,16 @@ export default function Home() {
             placeholder="Video Link" />
             <button onClick={handleDownload} className="border rounded-lg p-1 font-semibold px-5">Convert</button>
 
-            {
+           
+          </div>
+        </div>
+        {
               showDownload && (
                 <div className="mt-4">
-                  <video src={finalLink}></video>
+                  <video src={finalLink} controls></video>
                 </div>
               )
             }
-          </div>
-        </div>
       </section>
     </main>
   );

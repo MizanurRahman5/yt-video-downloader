@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
     const {searchParams} = new URL(request.url)
     const url = searchParams.get('url')
-    const info = await ytdl.getInfo(info)
+    const info = await ytdl.getInfo(url)
     const videoFormat = ytdl.filterFormats(info.formats , 'video')
     const format = ytdl.chooseFormat(videoFormat, {quality:"highestaudio"})
 
